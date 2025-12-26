@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api.proto;
+
+option go_package = "ai-translator/api/proto;proto";
+
+message AudioChunk {
+  bytes data = 1;
+  int32 sample_rate = 2;
+  int32 channels = 3;
+}
+
+message LanguageHint {
+  string source_language = 1;
+  string target_language = 2;
+}
+
+message SessionInfo {
+  string session_id = 1;
+  LanguageHint language_hint = 2;
+}
+
+message Empty {}

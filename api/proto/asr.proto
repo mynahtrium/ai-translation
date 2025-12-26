@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package api.proto;
+
+option go_package = "ai-translator/api/proto;proto";
+
+import "common.proto";
+
+service ASRService {
+  rpc StreamingRecognize(stream ASRRequest) returns (stream ASRResponse);
+}
+
+message ASRRequest {
+  oneof request {
+    StreamingConfig config = 1;
+    AudioChunk audio = 2;
+  }
+}
+
+message StreamingConfig {
+  SessionInfo session = 1;
+  bool enable_automatic_punctuation = 2;
+  bool enable_language_detection = 3;
+  repeated string language_codes = 4;
+}
+
+message ASRResponse {
+  string session_id = 1;
+  string transcript = 2;
+  bool is_final = 3;
+  float stability = 4;
+  string detected_language = 5;
+}

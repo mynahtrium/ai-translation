@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package api.proto;
+
+option go_package = "ai-translator/api/proto;proto";
+
+import "common.proto";
+
+service TranslatorService {
+  rpc Translate(TranslateRequest) returns (TranslateResponse);
+  rpc StreamTranslate(stream TranslateRequest) returns (stream TranslateResponse);
+}
+
+message TranslateRequest {
+  string session_id = 1;
+  string text = 2;
+  string source_language = 3;
+  string target_language = 4;
+  bool is_final = 5;
+}
+
+message TranslateResponse {
+  string session_id = 1;
+  string translated_text = 2;
+  string source_language = 3;
+  string target_language = 4;
+  bool is_final = 5;
+}
